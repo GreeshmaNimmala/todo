@@ -1,0 +1,55 @@
+
+  <!--<div class="row">
+    <div class="col-md-12">
+      <h1>Todo List</h1>
+      <ul class="list-group list-group-flush">
+        <li style="cursor: pointer;" class="list-group-item" *ngFor="let todoList of ( items | async).items" (click)="deleteItem(todoList.id)">
+          {{todoList.name}}
+        </li>
+        
+      </ul>
+      <form [formGroup]="addItem" (ngSubmit)="onSubmit()">
+        <input type="hidden" formControlName="itemNumber">
+        <input type="text" name="item" formControlName="itemName">
+        <button type="submit">+</button>
+        <span *ngIf="!addItem.get('itemName').valid && addItem.get('itemName').touched"></span>
+        
+      </form>
+      <ul *ngIf="(items | async); else noItems">
+              <li *ngFor="let todoList of items | async" (click)="deleteItem(todoList.id)">
+                <span>{{ todoList.name }}</span>
+              </li>
+            </ul>-->
+    
+    <div id="wrapper">
+      <div [class.loading]="(loading | async)" id="shopping-list" *ngIf="!(error | async); else yesError">
+        <div id="list">
+          <h2>
+            Todo List
+          </h2>
+
+          <ul *ngIf="(items | async); else noItems">
+        <li style="cursor: pointer;" class="list-group-item" *ngFor="let todoList of ( items | async).items" (click)="deleteItem(todoList.id)">
+         <span> {{todoList.name}}</span>
+        </li>
+        
+      </ul>
+    
+      <ng-template #noItems>
+            <ul>
+              <li style="max-width:250px;margin:0 auto;">No items found. Are you sure there's <em>nothing</em> you want?</li>
+            </ul>
+          </ng-template>
+        </div>
+            <form [formGroup]="addItem" (ngSubmit)="onSubmit()">
+        <input type="hidden" formControlName="itemNumber">
+        <input type="text" name="item" formControlName="itemName">
+        <button type="submit">+</button>
+        <span *ngIf="!addItem.get('itemName').valid && addItem.get('itemName').touched"></span>
+        
+      </form>
+      </div>
+      </div>
+      <ng-template #yesError>
+        <h2>{{(error | async)?.message}}</h2>
+      </ng-template>
